@@ -1,0 +1,23 @@
+# Node / Bun
+node_modules/
+bun.lockb
+
+# Env
+.env
+
+# Build
+dist/
+.vite/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes
+pgdata/
+
+# Editor
+.vscode/
