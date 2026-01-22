@@ -26,10 +26,10 @@ export class FolderService {
         const key = `children:${parentId ?? 'root'}`;
 
         if(cache.has(key)) {
-            console.log('[CACHE HIT]', key);
+            // console.log('[CACHE HIT]', key);
             return cache.get(key)
         }
-        console.log('[CACHE MISS]', key);
+        // console.log('[CACHE MISS]', key);
         const result = this.repo.findByParentId(parentId);
         cache.set(key, result);
         

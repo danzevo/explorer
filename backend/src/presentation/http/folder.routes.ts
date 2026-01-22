@@ -18,7 +18,10 @@ export const folderRoutes = new Elysia({ prefix: '/api/v1/folders'})
     )
     
     .get('/', ({ query }) => {
-        const parentId = query.parentId !== undefined ? Number(query.parentId) : null
+        let parentId: number | null = null
+        if(query.parentId !== undefined && query.parentId !== 'null') {
+            parentId = Number(query.parentId)
+        }
 
         return service.getChildren(parentId);
     })

@@ -7,27 +7,33 @@ A simple full-stack file explorer.
 ## 🧱 Tech Stack
 
 ### Backend
-- **Bun**
-- **Elysia**
-- **Drizzle ORM**
-- **PostgreSQL**
-- **Docker**
+- **Runtime:** Bun
+- **Language:** TypeScript
+- **Framework:** Elysia
+- **Database:** PostgreSQL
+- **ORM:** Drizzle ORM
+- **Architecture:** Clean / Hexagonal
+- **Container:** Docker
 
 ### Frontend
-- **Vue 3** (script setup)
-- **Vite**
-- **Tailwind CSS**
-- **Axios**
+- **Framework:** Vue 3
+- **API Style:** Composition API
+- **Styling:** Tailwind CSS
+- **HTTP Client:** Axios
+- **Bundler:** Vite (via Bun)
 
 ---
 
 ## ✨ Features
 
-- Folder tree view
-- Lazy-loaded folders
-- File listing per folder
-- REST API
-- Clean architecture (service / repository)
+- Recursive folder structure with unlimited depth
+- Lazy-loaded folder tree (scales to millions of records)
+- Left panel: expandable folder tree (Explorer-style)
+- Right panel: direct subfolders and files
+- Backend API with clean architecture (service + repository)
+- Tailwind CSS for styling
+- Bun runtime (backend + frontend)
+- Unit & integration-ready architecture (no Supertest dependency)
 - PostgreSQL via Docker
 
 ---
@@ -35,22 +41,22 @@ A simple full-stack file explorer.
 ## 📂 Project Structure
 
 ```
-.
+project-root/
 ├── backend/
 │   ├── src/
 │   │   ├── application/
+│   │   ├── domain/
 │   │   ├── infrastructure/
-│   │   └── index.ts
-│   ├── drizzle.config.ts
-│   └── package.json
+│   │   └── presentation/
+│   └── tsconfig.json
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── component/
+│   │   ├── components/
 │   │   ├── pages/
-│   │   └── main.ts
-│   ├── tailwind.config.js
-│   └── vite.config.ts
+│   │   ├── services/
+│   │   └── App.vue
+│   └── tailwind.config.js
 │
 └── docker-compose.yml
 ```
@@ -114,10 +120,32 @@ http://localhost:5173
 
 ## 🔗 API Endpoints
 
-```http
-GET /api/v1/folders/tree
-GET /api/v1/folders?parentId=:id
+### Get root folders (lazy loading)
+```
+GET /api/v1/folders?parentId=null
+```
+
+### Get child folders
+```
+GET /api/v1/folders?parentId=123
+```
+
+### Get folder children (alternative)
+```
+GET /api/v1/folders/:id/children
+```
+
+### Get files in folder
+```
 GET /api/v1/files/folder/:id
+```
+
+---
+
+## 🧪 Testing
+Example:
+```bash
+bun test
 ```
 
 ---
